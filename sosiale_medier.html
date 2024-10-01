@@ -1,346 +1,356 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IKF - Populære Sosiale Medier</title>
-
-    <style>
-        * {    /*Resetter alt for å unngå problemer */
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            padding: 20px;
-            background-image: url("Bilder/om_oss.jpg");
-            background-size: cover; 
-            background-repeat: no-repeat; 
-            background-position: center center;
-            
-        
-        }
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: url('Bilder/om_oss.jpg'); /* Set the background image here */
-            background-size: cover;
-            background-position: center;
-            z-index: -1; /* Make sure the image stays behind the content */
-            filter: blur(8px); /* Adjust the blur amount as needed */
-        }
-
-        /* Make sure the content has relative positioning to stay above the background */
-        .content {
-            position: relative;
-            z-index: 1;
-            padding: 20px;
-            color: white; /* Text color to contrast with the background */
-        }
-
-        .container {    /* Vi setter min-width til 800 for at den skal funke bra, hadde den på 1200 men det ble kluss rundt 1300 px */
-            max-width: 1600px;
-            min-width: 800px;
-            width: 100%;
-            display: grid;
-            grid-template-rows: auto auto 1fr auto;
-            grid-template-columns: 200px 1fr;
-            grid-template-areas:
-                "header header"
-                "headline headline"
-                "sidebar main"
-                "footer footer";
-            gap: 20px;
-        }
-
-        header {    
-            grid-area: header;
-            background-color: #E0E0E0;
-            padding: 5px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-radius: 15px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-
-        }
-
-        .logo { /* mildt inspirert av wikipedia */
-            background-color: #ccc;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 20px;
-            margin: 15px;
-        }
-
-        .logo:hover {
-            opacity: 0.9;
-            box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1);
-            transform:scale(1.2);
-        }
-        .site-name {
-            font-size: 48px;
-            margin-left: 80px;
-            flex-grow: 1;
-            text-align: left;
-            max-width: 500px;
-            font-weight: bolder;
-            font-style: initial;
-        }
-
-        .menu {
-            display: flex;
-            gap: 10px;
-        }
-
-        .menu-item {
-            background-color: #4a4a4a;
-            min-width: 130px;
-            padding: 10px 20px;
-            color: white;
-            border-radius: 45px;
-            margin: 15px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-            text-align: center;
-
-
-        }
-        .menu-item:hover {
-            opacity: 0.7;
-            transform: scale(1.1);
-
-        }
-
-        .headline {
-            grid-area: headline;
-            background-color: #4a90e2;
-            padding: 20px;
-            font-size: 24px;
-            color: white;
-            text-align: center;
-            border-radius: 10px ;
-        }
-
-        .sidebar {
-            grid-area: sidebar;
-            background-color: #FF6F3C;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            border-radius: 10px 0px 0px 10px;
-        }
-
-        .sidebar-item {
-            background-color: #333333;
-            padding: 10px 15px;
-            color: white;
-            border-radius: 7px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-
-
-        }
-        .sidebar-item:hover {
-            opacity: 0.8;
-            background-color: black;
-            background-color: #FF5722;
-            transform: scale(1.1);
-
-        }
-
-        .main {
-            grid-area: main;
-            background-color: #f0f0f0;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            padding: 20px;
-            border-radius: 0px 15px 15px 0px;
-        }
-
-        .description {
-            background-color: #e0e0e0;
-            padding: 15px;
-            font-size: 18px;
-            text-align: center;
-            margin-bottom: 20px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-
-            
-        }
-
-        .blog-posts {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-
-        }
-
-        .blog-post {
-            background-color: white;
-            width: calc(50% - 10px);
-            height: 200px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-            text-decoration: none !important;
-            color: black !important;
-
-        }
-
-        .blog-post.full-width {
-            width: 100%;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-
-        }
-
-        footer {
-            grid-area: footer;
-            background-color: #4A4A4A;
-            padding: 20px;
-            text-align: center;
-            border-radius: 10px 10px 25% 25%;
-        }
-        .sidelenker {
-            color: white;
-            text-decoration: none;
-            margin-right: 10px;
-        }
-        .utiljengelig {
-            color: #B3B3B3;
-            text-decoration: none;
-            text-decoration: line-through;
-            margin-right: 10px;
-        }
-        .banner {
-        
-            height: 80px;
-            border-radius: 5px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-
-            
-        }
-        .bannerdiv {
-            align-self: left;
-        }
-        .banner:hover{
-            opacity: 0.8;
-        }
-
-        .flag {
-            height: 13px;
-        }
-        .language-dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.language-btn {
-    background-color: #4a4a4a;
-    color: white;
-    border: none;
-    min-width: 130px;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 45px;
-    margin: 15px 15px 0px 0px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-    min-height: 38px;
-
-    gap: 5px;
-    text-align: center;
-}
-
-.language-menu {
-    display: none;
-    position: absolute;
-    min-width: 130px;
-    z-index: 1;
-    border-radius: 5px;
-}
-
-.language-menu button {
-    background-color: #4a4a4a;
-    color: white;
-    border: none;
-    padding: 12px 16px;
-    text-align: center;
-    width: 100%;
-    margin: 2px 0px 0px 0px;;
-    min-width: 130px;
-    max-width: 130px;
-    cursor: pointer;
-    border: solid 1px gray;
-    margin: 0px 15px 0px 0px;
-    border-radius: 45px;
-    box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.3);
-
-}
-
-.language-menu button:hover {
-    background-color: #333; /* Change color on hover */
-}
-
-.language-dropdown:hover .language-menu {
-    display: block; /* Show the dropdown menu on hover */
-}
-
-
-
-
-
-    </style>
-</head>
-<body>
-
-    <div class="container">
-        <header>                  <!-- Logo og banner er begge laget av DALL-E 4 -->
-
-            <a href="Bilder/Logo.jpg"><div class="logo">    <img src="Bilder/Logo.jpg" class="logo" title="Internet kort forklart" alt="Internet kort forklart" >
-            </div></a>
-            
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>IKF - Populære Sosiale Medier</title>
+      <style>
+         * {
+         /*Resetter alt for å unngå problemer */
+         margin: 0;
+         padding: 0;
+         box-sizing: border-box;
+         }
+         body {
+         font-family: Arial, sans-serif;
+         display: flex;
+         justify-content: center;
+         padding: 20px;
+         background-image: url("Bilder/om_oss.jpg");
+         background-size: cover;
+         background-repeat: no-repeat;
+         background-position: center center;
+         }
+         body::before {
+         content: '';
+         position: absolute;
+         top: 0;
+         left: 0;
+         right: 0;
+         bottom: 0;
+         background-image: url('Bilder/om_oss.jpg');
+         /* Set the background image here */
+         background-size: cover;
+         background-position: center;
+         z-index: -1;
+         /* Make sure the image stays behind the content */
+         filter: blur(8px);
+         /* Adjust the blur amount as needed */
+         }
+         /* Make sure the content has relative positioning to stay above the background */
+         .content {
+         position: relative;
+         z-index: 1;
+         padding: 20px;
+         color: white;
+         /* Text color to contrast with the background */
+         }
+         .container {
+         /* Vi setter min-width til 800 for at den skal funke bra, hadde den på 1200 men det ble kluss rundt 1300 px */
+         max-width: 1600px;
+         min-width: 800px;
+         width: 100%;
+         display: grid;
+         grid-template-rows: auto auto 1fr auto;
+         grid-template-columns: 200px 1fr;
+         grid-template-areas:
+         "header header"
+         "headline headline"
+         "sidebar main"
+         "footer footer";
+         gap: 20px;
+         }
+         header {
+         grid-area: header;
+         background-color: #E0E0E0;
+         padding: 5px;
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         border-radius: 15px;
+         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+         }
+         .logo {
+         /* mildt inspirert av wikipedia */
+         background-color: #ccc;
+         width: 60px;
+         height: 60px;
+         border-radius: 50%;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         font-size: 20px;
+         margin: 15px;
+         transition: transform .2s;
+         }
+         .logo:hover {
+         opacity: 0.9;
+         box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1);
+         transform: scale(1.2);
+         transition: transform 0.2s;
+         }
+         .site-name {
+         font-size: 48px;
+         margin-left: 80px;
+         flex-grow: 1;
+         text-align: left;
+         max-width: 500px;
+         font-weight: bolder;
+         font-style: initial;
+         }
+         .menu {
+         display: flex;
+         gap: 10px;
+         }
+         .menu-item {
+         background-color: #4a4a4a;
+         min-width: 130px;
+         padding: 10px 20px;
+         color: white;
+         border-radius: 45px;
+         margin: 15px;
+         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+         text-align: center;
+         transition: transform .2s;
+         }
+         .menu-item:hover {
+         opacity: 0.7;
+         transform: scale(1.1);
+         transition: transform .2s;
+         }
+         .headline {
+         grid-area: headline;
+         background-color: #4a90e2;
+         padding: 20px;
+         font-size: 24px;
+         color: white;
+         text-align: center;
+         border-radius: 10px;
+         }
+         .sidebar {
+         grid-area: sidebar;
+         background-color: #FF6F3C;
+         padding: 20px;
+         display: flex;
+         flex-direction: column;
+         gap: 10px;
+         border-radius: 10px 0px 0px 10px;
+         }
+         .sidebar-item {
+         background-color: #333333;
+         padding: 10px 15px;
+         color: white;
+         border-radius: 7px;
+         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+         transition: transform .2s;
+         }
+         .sidebar-item:hover {
+         opacity: 0.8;
+         background-color: black;
+         background-color: #FF5722;
+         transform: scale(1.1);
+         transition: transform .2s;
+         }
+         .main {
+         grid-area: main;
+         background-color: #f0f0f0;
+         display: flex;
+         flex-direction: column;
+         gap: 20px;
+         padding: 20px;
+         border-radius: 0px 15px 15px 0px;
+         }
+         .description {
+         background-color: #e0e0e0;
+         padding: 15px;
+         font-size: 18px;
+         text-align: center;
+         margin-bottom: 20px;
+         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+         }
+         .blog-posts {
+         display: flex;
+         flex-wrap: wrap;
+         gap: 20px;
+         }
+         .blog-post {
+         background-color: white;
+         width: calc(50% - 10px);
+         height: 200px;
+         display: flex;
+         justify-content: center;
+         /* Horizontally center content */
+         align-items: center;
+         /* Vertically center content */
+         font-size: 20px;
+         box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+         text-decoration: none !important;
+         color: black !important;
+         padding: 10px;
+         }
+         .blog-post.full-width {
+         width: 100%;
+         box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+         }
+         .blog-post a {
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         text-decoration: none;
+         color: black;
+         }
+         .blog-post img {
+         width: 40px;
+         /* Adjust the size of the icon */
+         height: 40px;
+         margin-right: 10px;
+         /* Space between the icon and text */
+         }
+         .blog-post div {
+         font-size: 20px;
+         }
+         .blog1 {
+         background: radial-gradient(circle at 33% 100%, #fed373 4%, #f15245 30%, #d92e7f 62%, #9b36b7 85%, #515ecf)
+         }
+         .blog2 {
+         background: radial-gradient(circle at center, #FFFC00, #FFD600);
+         }
+         .blog3 {
+         background: radial-gradient(circle at center, #1877F2, #3b5998, #1c1e21);
+         }
+         footer {
+         grid-area: footer;
+         background-color: #4A4A4A;
+         padding: 20px;
+         text-align: center;
+         border-radius: 10px;
+         }
+         .sidelenker {
+         color: white;
+         text-decoration: none;
+         margin-right: 10px;
+         }
+         .utiljengelig {
+         color: #B3B3B3;
+         text-decoration: none;
+         text-decoration: line-through;
+         margin-right: 10px;
+         }
+         .banner {
+         height: 80px;
+         border-radius: 5px;
+         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+         transition: transform .2s;
+         }
+         .bannerdiv {
+         align-self: left;
+         }
+         .banner:hover {
+         opacity: 0.8;
+         transition: transform .2s;
+         }
+         .flag {
+         height: 13px;
+         }
+         .language-dropdown {
+         transition: transform .2s;
+         position: relative;
+         display: inline-block;
+         }
+         .language-btn {
+         background-color: #4a4a4a;
+         color: white;
+         border: none;
+         min-width: 130px;
+         padding: 10px 20px;
+         cursor: pointer;
+         border-radius: 45px;
+         margin: 15px 15px 0px 0px;
+         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+         min-height: 38px;
+         gap: 5px;
+         text-align: center;
+         }
+         .language-menu {
+         display: none;
+         position: absolute;
+         min-width: 130px;
+         z-index: 1;
+         border-radius: 5px;
+         }
+         .language-menu button {
+         background-color: #4a4a4a;
+         color: white;
+         border: none;
+         padding: 12px 16px;
+         text-align: center;
+         width: 100%;
+         margin: 2px 0px 0px 0px;
+         ;
+         min-width: 130px;
+         max-width: 130px;
+         cursor: pointer;
+         border: solid 1px gray;
+         margin: 0px 15px 0px 0px;
+         border-radius: 45px;
+         box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.3);
+         }
+         .language-menu button:hover {
+         background-color: #333;
+         /* Change color on hover */
+         transition: transform .2s;
+         }
+         .language-dropdown:hover .language-menu {
+         display: block;
+         /* Show the dropdown menu on hover */
+         transition: transform .2s;
+         }
+         .facebook {
+         background-color: #1877F2;
+         background-image: url("Bilder/facebook-logo.png");
+         background-size: contain;
+         background-repeat: no-repeat;
+         background-position: center;
+         /* */
+         }
+      </style>
+   </head>
+   <body>
+      <div class="container">
+         <header>
+            <!-- Logo og banner er begge laget av DALL-E 4 -->
+            <a href="Bilder/Logo.jpg">
+               <div class="logo"> 
+                  <img src="Bilder/Logo.jpg" class="logo" title="Internet kort forklart" alt="Internet kort forklart">
+               </div>
+            </a>
             <div class="site-name">Internet kort forklart</div>
-            <a href="Bilder/Banner.jpg"><div class="bannerdiv"> <img src="Bilder/Banner.jpg" class="banner" title="Internet kort forklart av DALLE-4" alt="Internet kort forklart" > </div> </a>
+            <a href="Bilder/Banner.jpg">
+               <div class="bannerdiv"> 
+                  <img src="Bilder/Banner.jpg" class="banner" title="Internet kort forklart av DALLE-4" alt="Internet kort forklart"> 
+               </div>
+            </a>
             <div class="menu">
-                <a href="om_oss.html" class="sidelenker">
-                    <div class="menu-item">
-                      Om oss
-                    </div>
-                </a>
-            
-                <div class="language-dropdown">
-                    <button class="language-btn">No <img src="Bilder/norway-flag.jpg" class="flag"></button>
-                    <div class="language-menu">
-                        <a href="sosiale_medier.html"><button>No <img src="Bilder/norway-flag.jpg" class="flag"></button></a>
-                        <button>De <img src="Bilder/germany-flag.jpg" class="flag"></button>
-                        <button>En <img src="Bilder/united-kingdom-flag.jpg" class="flag"></button>
-                    </div>
-                </div>
+               <a href="om_oss.html" class="sidelenker">
+                  <div class="menu-item">
+                     Om oss
+                  </div>
+               </a>
+               <div class="language-dropdown">
+                  <button class="language-btn">No <img src="Bilder/norway-flag.jpg" class="flag"></button>
+                  <div class="language-menu">
+                     <a href="sosiale_medier.html"><button>No <img src="Bilder/norway-flag.jpg"class="flag"></button></a>
+                     <button>De <img src="Bilder/germany-flag.jpg" class="flag"></button>
+                     <button>En <img src="Bilder/united-kingdom-flag.jpg" class="flag"></button>
+                  </div>
+               </div>
             </div>
-        </header>
-
-
-        <div class="headline">
-           Populære Sosiale medier
-        </div>
-
-        <aside class="sidebar"> <!-- Sidebar med lenker til andre sider, utiljengelig er det som er rent estetisk men noenlunde realistisk for sider som ennå ikke er ferdigstilt. class="utiljengelig" lager skrift grå og strektet. -->
-
+         </header>
+         <div class="headline">
+            Populære Sosiale medier
+         </div>
+         <aside class="sidebar">
+            <!-- Sidebar med lenker til andre sider, utiljengelig er det som er rent estetisk men noenlunde realistisk for sider som ennå ikke er ferdigstilt. class="utiljengelig" lager skrift grå og strektet. -->
             <div class="sidebar-item"><a href="Instagram.html" class="sidelenker"> Om Instagram </a></div>
             <div class="sidebar-item"><a href="snapchat.html" class="sidelenker"> Om Snapchat </a></div>
             <div class="sidebar-item"><a href="facebook.html" class="sidelenker"> Om Facebook </a></div>
@@ -351,24 +361,35 @@
             <div class="sidebar-item"><a href="utiljengelig.html" class="utiljengelig"> Om Reddit </a></div>
             <div class="sidebar-item"><a href="utiljengelig.html" class="utiljengelig"> Bruken av sosiale medier blant unge </a></div>
             <div class="sidebar-item"><a href="kilder.html" class="sidelenker"> Kildereferanser: </a></div>
-        </aside>
-
-        <main class="main">
+         </aside>
+         <main class="main">
             <div class="description">
-                This is a description for the blog posts section. Add any text you want here.
+               This is a description for the blog posts section. Add any text you want here.
             </div>
-
             <div class="blog-posts">
-                <a href="Instagram.html" class="blog-post"><div >Blog Post 1</div></a>
-                <a href="snapchat.html" class="blog-post"><div>Blog Post 2</div></a>
-                <a href="facebook.html" class="blog-post full-width"><div >Blog Post 3</div></a>
+               <div class="blog-post blog1">
+                  <a href="Instagram.html">
+                     <img src="Bilder/instagram-logo.png" alt="Instagram Icon">
+                     <div>Description & History of Instagram</div>
+                  </a>
+               </div>
+               <div class="blog-post blog2">
+                  <a href="snapchat.html">
+                     <img src="Bilder/snapchat-logo.png" alt="Snapchat Icon">
+                     <div>Description & History of Snapchat</div>
+                  </a>
+               </div>
+               <div class="blog-post blog3 full-width">
+                  <a href="facebook.html">
+                     <img src="Bilder/facebook-logo.png" alt="Facebook Icon">
+                     <div>Description & History of Facebook</div>
+                  </a>
+               </div>
             </div>
-        </main>
-
-        <footer>
+         </main>
+         <footer>
             Footer
-        </footer>
-    </div>
-
-</body>
+         </footer>
+      </div>
+   </body>
 </html>
